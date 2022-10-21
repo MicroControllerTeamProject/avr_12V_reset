@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+avr_12V_reset/Debug/
+.vs/
+avr_12V_reset/__vm/
+*.filters
