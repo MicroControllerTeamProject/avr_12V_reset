@@ -10,6 +10,10 @@
 #define SII 10 // Target Instruction Input
 #define SDI 9 // Target Data Input
 #define VCC 8 // Target VCC
+#define START_BUTTON 4 
+#define RED_LED 5 
+#define GREEN_LED 6	
+
 
 #define HFUSE 0x747C
 #define LFUSE 0x646C
@@ -31,17 +35,39 @@ void setup() {
 	pinMode(SII, OUTPUT);
 	pinMode(SCI, OUTPUT);
 	pinMode(SDO, OUTPUT); // Configured as input when in programming mode
+	pinMode(START_BUTTON, INPUT_PULLUP); 
+	pinMode(RED_LED, OUTPUT);
+	pinMode(GREEN_LED,OUTPUT);
 	digitalWrite(RST, HIGH); // Level shifter is inverting, this shuts off 12V
+
 	Serial.begin(19200);
-	Serial.println("Code is modified by Rik. Visit riktronics.wordpress.com and electronics-lab.com for more projects");
-	Serial.println("-------------------------------------------------------------------------------------------------");
-	Serial.println("Enter any character to start process..");
+	/*Serial.println("Enter any character to start process..");*/
+	digitalWrite(START_BUTTON, HIGH);
+	digitalWrite(GREEN_LED, HIGH);
+	digitalWrite(RED_LED, HIGH);
+	blinkCicle(10);
+}
+
+void blinkCicle(unsigned long delayTime)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		digitalWrite(RED_LED, LOW);
+		delay(delayTime);
+		digitalWrite(RED_LED, HIGH);
+		delay(delayTime);
+		digitalWrite(GREEN_LED, LOW);
+		delay(delayTime);
+		digitalWrite(GREEN_LED, HIGH);
+		delay(delayTime);
+	}
 }
 
 
 void loop() {
-	if (Serial.available() > 0) {
+	if (digitalRead(START_BUTTON) == LOW /*|| Serial.available() > 0*/) {
 		Serial.read();
+		blinkCicle(50);
 		pinMode(SDO, OUTPUT); // Set SDO to output
 		digitalWrite(SDI, LOW);
 		digitalWrite(SII, LOW);
@@ -83,6 +109,11 @@ void loop() {
 			writeFuse(HFUSE, 0xDF);
 			writeFuse(EFUSE, 0xFF);
 		}
+		else
+		{
+			digitalWrite(RED_LED, LOW);
+			return;
+		}
 
 		Serial.println("Fuses will be read again to check if it's changed successfully..");
 		readFuses();
@@ -94,7 +125,11 @@ void loop() {
 		Serial.println("");
 		Serial.println("");
 		Serial.println("");
+		digitalWrite(RED_LED, HIGH);
+		digitalWrite(GREEN_LED, LOW);
+		delay(2000);
 	}
+	
 }
 
 byte shiftOut(byte val1, byte val2) {
