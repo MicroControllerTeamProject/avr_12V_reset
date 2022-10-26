@@ -41,11 +41,13 @@ void setup() {
 	digitalWrite(RST, HIGH); // Level shifter is inverting, this shuts off 12V
 
 	Serial.begin(19200);
-	/*Serial.println("Enter any character to start process..");*/
+	
 	digitalWrite(START_BUTTON, HIGH);
 	digitalWrite(GREEN_LED, HIGH);
 	digitalWrite(RED_LED, HIGH);
 	blinkCicle(10);
+
+	Serial.println("System ready...");
 }
 
 void blinkCicle(unsigned long delayTime)
@@ -62,7 +64,6 @@ void blinkCicle(unsigned long delayTime)
 		delay(delayTime);
 	}
 }
-
 
 void loop() {
 	if (digitalRead(START_BUTTON) == LOW /*|| Serial.available() > 0*/) {
