@@ -112,6 +112,7 @@
       <FileType>CppCode</FileType>
     </None>
     <None Include="circuits\AVR_12V_reset7.brd" />
+    <None Include="circuits\AVR_12V_reset7_printing.brd" />
     <None Include="original data\Recover Bricked ATtiny Using Arduino as high voltage programmer - Electronics-Lab.com.html" />
   </ItemGroup>
   <ItemGroup>

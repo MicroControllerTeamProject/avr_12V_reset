@@ -190,6 +190,7 @@
 <rectangle x1="63" y1="3" x2="67" y2="6" layer="16"/>
 <rectangle x1="24" y1="1" x2="33" y2="4" layer="16"/>
 <rectangle x1="79" y1="17" x2="81" y2="22" layer="16"/>
+<circle x="10.102790625" y="25.14820625" radius="0.980425" width="0.1524" layer="1"/>
 </plain>
 <libraries>
 <library name="eagle-ltspice" urn="urn:adsk.eagle:library:217">
